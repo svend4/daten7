@@ -363,13 +363,108 @@
 
 ---
 
+## Приложения: Динамические модули и разработка
+
+### 🔌 Расширения документации
+
+#### Приложение A: [APPENDIX_A_PLUGIN_ARCHITECTURE.md](APPENDIX_A_PLUGIN_ARCHITECTURE.md)
+**Динамическая Plug-in архитектура**
+
+Система управления модулями:
+- **Установка/удаление** модулей по ссылке или из репозитория
+- **Версионирование** - поддержка множественных версий
+- **Горячая замена** - обновление без остановки системы
+- **Репозиторий модулей** - публичный и приватный
+- **Безопасность** - подпись, sandboxing, аудит
+- **CLI команды** - полное управление через терминал
+
+**Ключевые возможности:**
+```bash
+module install email-extractor
+module update --all
+module install https://modules.example.com/my-module.zip
+```
+
+---
+
+#### Приложение B: [APPENDIX_B_MODULE_API.md](APPENDIX_B_MODULE_API.md)
+**API для разработки модулей**
+
+Техническая спецификация:
+- **Базовый интерфейс** `BaseModule` - абстрактный класс
+- **Асинхронная обработка** - `AsyncBaseModule`
+- **Потоковая обработка** - streaming support
+- **Кэширование** результатов
+- **Hooks** - расширение функциональности
+- **Обработка ошибок** - retry logic, graceful degradation
+- **Тестирование** - unit и integration тесты
+
+**Минимальный модуль:**
+```python
+from core.module_api import BaseModule, ModuleInput, ModuleOutput
+
+class MyModule(BaseModule):
+    def process(self, input_data: ModuleInput) -> ModuleOutput:
+        # Ваша логика
+        return ModuleOutput(data=result, format='json', ...)
+```
+
+---
+
+#### Приложение C: [APPENDIX_C_CODE_EXAMPLES.md](APPENDIX_C_CODE_EXAMPLES.md)
+**Примеры программного кода модулей**
+
+Готовые примеры реализации:
+1. **CSV Filter** - простой модуль фильтрации
+2. **Async Web Scraper** - асинхронный скрейпинг
+3. **Text Classifier** - ML модуль с scikit-learn
+4. **Data Transformer** - поддержка pipeline
+5. **Cached Processor** - модуль с кэшированием
+6. **Webhook Notifier** - отправка уведомлений
+
+Каждый пример включает:
+- Полную структуру модуля
+- `module.json` манифест
+- Реализацию `processor.py`
+- `requirements.txt`
+
+---
+
+#### Приложение D: [APPENDIX_D_DEVELOPER_GUIDE.md](APPENDIX_D_DEVELOPER_GUIDE.md)
+**Руководство разработчика модулей**
+
+Практическое руководство:
+- **Быстрый старт** - создание первого модуля за 5 минут
+- **Best Practices** - правильное именование, обработка ошибок, логирование
+- **Распространённые паттерны** - batch processing, retry logic, cleanup
+- **Отладка** - debug режим, профилирование, breakpoints
+- **Публикация** - упаковка, подпись, публикация в репозиторий
+- **FAQ** - ответы на частые вопросы
+
+**Создание модуля:**
+```bash
+module create my-module      # Создать шаблон
+module validate ./my-module  # Валидация
+module pack ./my-module      # Упаковка
+module publish my-module.zip # Публикация
+```
+
+---
+
 ## Следующие шаги
 
+### Для пользователей системы:
 1. **Выберите конфигурацию** - изучите CONFIG_MINIMAL/STANDARD/MAXIMUM.md
 2. **Изучите примеры** - см. MODULE_EXAMPLES.md
 3. **Спроектируйте pipeline** - см. PIPELINE_PATTERNS.md
 4. **Разработайте архитектуру** - см. MODULAR_DATA_PIPELINE_ARCHITECTURE.md
-5. **Начните разработку** - создайте первые модули
+
+### Для разработчиков модулей:
+1. **Изучите plug-in архитектуру** - см. APPENDIX_A_PLUGIN_ARCHITECTURE.md
+2. **Освойте API** - см. APPENDIX_B_MODULE_API.md
+3. **Посмотрите примеры кода** - см. APPENDIX_C_CODE_EXAMPLES.md
+4. **Следуйте руководству** - см. APPENDIX_D_DEVELOPER_GUIDE.md
+5. **Создайте свой первый модуль** - `module create my-first-module`
 
 ---
 
